@@ -1,1 +1,27 @@
-import type { Metadata, Viewport } from “next”; import “./globals.css”; export const meta Metadata = { title: “Hera’s Cycle”, description: “Offline-first cycle tracking with visual-first clarity.”, appleWebApp: { capable: true, statusBarStyle: “black-translucent”, title: “Hera” }, icons: { apple: [{ url: “/icon-192.png” }], icon: [{ url: “/icon-192.png” }] } }; export const viewport: Viewport = { width: “device-width”, initialScale: 1, viewportFit: “cover”, themeColor: “#0b0f19” }; export default function RootLayout({ children }: { children: React.ReactNode }) { return ({children} ); }
+import type { Metadata, Viewport } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Hera's Cycle",
+  description: "Offline-first cycle tracking with visual-first clarity.",
+  appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Hera" },
+  icons: {
+    apple: [{ url: "/icon-192.png" }],
+    icon: [{ url: "/icon-192.png" }]
+  }
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#0b0f19"
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className="h-full">
+      <body className="h-full overscroll-none">{children}</body>
+    </html>
+  );
+}

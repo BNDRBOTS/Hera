@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  color-scheme: light;
+  --bg0:#0b0f19;
+  --bg1:#0f172a;
+
+  /* Congruent palette */
+  --card: rgba(255,255,255,0.82);
+  --card2: rgba(255,255,255,0.66);
+  --stroke: rgba(255,255,255,0.30);
+
+  --text: rgba(15,23,42,0.96);
+  --muted: rgba(51,65,85,0.82);
+
+  --blushA:#fb7185;
+  --blushB:#e11d48;
+
+  --serA:#818cf8;
+  --serB:#4f46e5;
+
+  --natA:#34d399;
+  --natB:#10b981;
+
+  --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+}
+
+html, body { height: 100%; }
+body{
+  margin:0;
+  font-family: var(--font);
+  background:
+    radial-gradient(1100px 800px at 20% 12%, rgba(255,255,255,0.11), transparent 60%),
+    radial-gradient(1000px 700px at 84% 0%, rgba(255,255,255,0.08), transparent 64%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+main{ min-height: 100dvh; }
+button, a, input, select, textarea{ min-height:44px; }
+
+:focus-visible{
+  outline:3px solid rgba(255,255,255,0.70);
+  outline-offset:3px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:1ms !important; animation-iteration-count:1 !important; transition-duration:1ms !important; scroll-behavior:auto !important; }
+}
+
+@layer utilities{
+  .safe-px{ padding-left:max(env(safe-area-inset-left), 16px); padding-right:max(env(safe-area-inset-right), 16px); }
+  .safe-pt{ padding-top:max(env(safe-area-inset-top), 14px); }
+  .safe-pb{ padding-bottom:max(env(safe-area-inset-bottom), 14px); }
+
+  .glass{
+    background: var(--card2);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--stroke);
+    box-shadow: 0 14px 52px rgba(0,0,0,0.18);
+  }
+  .glass-strong{
+    background: var(--card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.36);
+    box-shadow: 0 18px 58px rgba(0,0,0,0.22);
+  }
+
+  .tap{ transition: transform 120ms ease, filter 160ms ease; }
+  .tap:active{ transform: scale(0.99); filter: brightness(0.98); }
+
+  .fade-in{ animation: fadeIn 260ms ease both; }
+  .floaty{ animation: floaty 6s ease-in-out infinite; }
+  .shimmer{ background-size: 220% 100%; animation: shimmer 2.0s linear infinite; }
+
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border-width:0;
+  }
+}
+
+@keyframes fadeIn{ from{opacity:0; transform: translateY(6px);} to{opacity:1; transform:none;} }
+@keyframes floaty{ 0%,100%{ transform: translateY(0px);} 50%{ transform: translateY(-10px);} }
+@keyframes shimmer{ 0%{ background-position: 0% 0%; } 100%{ background-position: 220% 0%; } }
+
+
+@keyframes loadingbar{ 0%{ transform: translateX(-70%);} 100%{ transform: translateX(140%);} }
+.animate-loadingbar{ animation: loadingbar 1.15s ease-in-out infinite; }
+
+.animate-floaty{ animation: floaty 4.4s ease-in-out infinite; }
+.animate-shimmer{ animation: shimmer 2.6s linear infinite; }
