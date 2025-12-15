@@ -9,9 +9,9 @@ export function Card(props: { className?: string; children: React.ReactNode; str
   );
 }
 
-export function Pill(props: { className?: string; children: React.ReactNode }) {
+export function Pill(props: { className?: string; tone?: string; children: React.ReactNode }) {
   return (
-    <span className={cn("inline-flex items-center rounded-full border border-white/30 bg-white/70 px-3 py-1 text-[11px] font-semibold text-slate-900/90", props.className)}>
+    <span className={cn("inline-flex items-center rounded-full border border-white/35 bg-white/60 px-2.5 py-1 text-[11px] font-semibold text-slate-900/90", props.tone, props.className)}>
       {props.children}
     </span>
   );
@@ -33,8 +33,10 @@ export function Button(props: {
       onClick={props.onClick}
       className={cn(
         "w-full rounded-x4 px-4 tap font-semibold",
-        tone === "dark" ? "bg-slate-950/90 text-white" : "bg-white/70 text-slate-950 border border-white/30",
-        props.disabled ? "opacity-70" : "",
+        tone === "dark"
+          ? "bg-slate-950 text-white hover:bg-slate-900"
+          : "bg-white/75 text-slate-950 hover:bg-white",
+        props.disabled ? "opacity-50 pointer-events-none" : "",
         props.className
       )}
     >
@@ -43,47 +45,57 @@ export function Button(props: {
   );
 }
 
-export function Input(props: React.InputHTMLAttributes<HTMLInputElement> & { label: string }) {
+export function Toggle(props: {
+  className?: string;
+  value: boolean;
+  onChange: (v: boolean) => void;
+  label: string;
+}) {
   return (
-    <label className="block">
-      <div className="text-[11px] font-bold tracking-wide text-slate-800/75">{props.label}</div>
-      <input
-        {...props}
+    <button
+      type="button"
+      className={cn("w-full flex items-center justify-between rounded-x4 border border-white/30 bg-white/60 px-4 py-3 tap", props.className)}
+      onClick={() => props.onChange(!props.value)}
+    >
+      <span className="text-sm font-bold text-slate-950/80">{props.label}</span>
+      <span
         className={cn(
-          "mt-1 w-full rounded-x4 border border-white/30 bg-white/80 px-3 py-2 text-slate-950 outline-none focus:ring-2 focus:ring-white/40",
-          props.className
+          "relative h-6 w-11 rounded-full transition",
+          props.value ? "bg-slate-950" : "bg-slate-300"
         )}
-      />
-    </label>
+      >
+        <span
+          className={cn(
+            "absolute top-0.5 h-5 w-5 rounded-full bg-white transition",
+            props.value ? "left-5" : "left-0.5"
+          )}
+        />
+      </span>
+    </button>
   );
 }
 
-export function Select(props: React.SelectHTMLAttributes<HTMLSelectElement> & { label: string }) {
+export function Input(props: {
+  className?: string;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  type?: string;
+}) {
   return (
-    <label className="block">
-      <div className="text-[11px] font-bold tracking-wide text-slate-800/75">{props.label}</div>
-      <select
-        {...props}
-        className={cn(
-          "mt-1 w-full rounded-x4 border border-white/30 bg-white/80 px-3 py-2 text-slate-950 outline-none focus:ring-2 focus:ring-white/40",
-          props.className
-        )}
-      />
-    </label>
+    <input
+      value={props.value}
+      onChange={(e) => props.onChange(e.target.value)}
+      placeholder={props.placeholder}
+      type={props.type ?? "text"}
+      className={cn(
+        "w-full rounded-x4 border border-white/30 bg-white/60 px-4 py-3 text-sm font-semibold text-slate-950/90 outline-none placeholder:text-slate-500/70 focus:ring-2 focus:ring-slate-950/20",
+        props.className
+      )}
+    />
   );
 }
 
-export function TextArea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement> & { label: string }) {
-  return (
-    <label className="block">
-      <div className="text-[11px] font-bold tracking-wide text-slate-800/75">{props.label}</div>
-      <textarea
-        {...props}
-        className={cn(
-          "mt-1 w-full rounded-x4 border border-white/30 bg-white/80 px-3 py-2 text-slate-950 outline-none focus:ring-2 focus:ring-white/40",
-          props.className
-        )}
-      />
-    </label>
-  );
+export function Divider() {
+  return <div className="h-px w-full bg-white/30" />;
 }
