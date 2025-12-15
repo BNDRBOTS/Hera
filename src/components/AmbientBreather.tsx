@@ -47,9 +47,8 @@ export function AmbientBreather(props: { inhaleSec?: number; holdSec?: number; e
     lastStageRef.current = stage;
 
     if (typeof navigator !== "undefined" && "vibrate" in navigator) {
-      // @ts-expect-error vibrate exists in supporting browsers
-      navigator.vibrate(plan[idx]!.vibe);
-    }
+  navigator.vibrate(plan[idx]!.vibe);
+}
   }, [stage, plan, idx]);
 
   const scale =
